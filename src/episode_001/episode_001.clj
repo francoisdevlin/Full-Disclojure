@@ -10,15 +10,15 @@
     (sound/play-file test-wav))
   (messages/plain-message "From the Present"))
 
-(def a-future
+(def f
      (future
-       (Thread/sleep 10000)
+       (Thread/sleep 15000)
        "The future is complete"))
 
 (do 
   (future (Thread/sleep 5000)
-	  (deliver a-promise :fred))
-  @a-promise)
+	  (deliver p :fred))
+  @p)
 
 
 
