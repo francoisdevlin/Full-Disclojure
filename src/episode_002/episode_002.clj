@@ -2,18 +2,16 @@
   (:use lib.sfd.timing
 	lib.sfd.stat-utils))
 
-(persistent! 
- (let [c (transient {})]
-   (-> c
-     (assoc! :a 1)
-     (assoc! :b 2)
-     (assoc! :c 3))))
-
-(let [c {}]
-  (-> c
+(-> {}
     (assoc :a 1)
     (assoc :b 2)
-    (assoc :c 3)))
+    (assoc :c 3))
+
+(-> (transient {})
+    (assoc! :a 1)
+    (assoc! :b 2)
+    (assoc! :c 3)
+    persistent!)))
 
 ;;Wrong way to use transients!
 (let [c (transient {})]
@@ -23,14 +21,21 @@
     (assoc! c :c 3)
     (persistent! c)))
 
+;;This example breaks
 (let [a (transient {})] 
   (dotimes [i 20] (assoc! a i i))
   (persistent! a))
 
+;;Proper way to use transients
 (persistent! 
  (reduce (fn[m v] (assoc! m v v))
 	 (transient {})
 	 (range 1 21)))
+
+
+;;----------------------------
+;; PERFORMANCE EXPERIMENTS
+;;----------------------------
 
 (defn vrange [n]
   (loop [i 0 c []]
