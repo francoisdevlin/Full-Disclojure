@@ -19,10 +19,6 @@ hash-maps.
 	    (assoc :b 2)
 	    (assoc :c 3)))
 	
-As you expect this version returns `{:c 3}`, because the original map isn't modified.  If you
-wanted to associate all of the values with the map, you would use the threading macro to
-rewrite the code appropriately.
-
 Let's run the same example with transients as see what happens.
 
 	episode-002=>(let [c (transient {})]
@@ -34,16 +30,22 @@ Let's run the same example with transients as see what happens.
 	
 #Signature difference
 
-The first thing to notice is two new functions, `transient` and `persistent!`. These are responsible
-for creating transient structures, and converting the back to persistent ones when finished.
+The first thing to notice is the call to `transient`.  This converts or persistent data structure 
+to a transient one.
 
-However, the really interesting function is `assoc!`.  `assoc!` takes a transient map and a key value
-pair, very similar to `assoc`.  Now, let me take a second to address the reaction some of you are
-having.  When I first heard about transient data structures in Clojure, I was very concerned.  My initial
-reaction was to criticize their inclusion in the language.  However, I've warmed up to the idea.
+The next function is `assoc!`.  `assoc!` takes a transient map and a key value
+pair, very similar to `assoc`.  It returns a modified collection, that ignores the intermediate result.  Once
+each `assoc!` has been called, the entire thing is converted back to a persistent data structure with
+`persistent!`
+
+Now, let me take a second to address some concerns you might have about transients
+When I first heard about transient data structures in Clojure, I wasn't sure they were a good idea.  My initial
+reaction was to criticize their inclusion in the language.  However, as I learned more about them
+I warmed up to the idea.
 
 #Concurrency
-Transients are not mutable data structures.  For example, the following code appears to work
+Transients are not mutable data structures.  You can not use them to write imperative code. For example,
+the following code appears to work
 
 	episode-002=>(let [c (transient {})]
   	  (do
@@ -52,13 +54,13 @@ Transients are not mutable data structures.  For example, the following code app
     	(assoc! c :c 3)
     	(persistent! c)))
 
-However, this is just a coincidence.  If we use the following example 
+However, this mutating in place behavior is an implementation detail.  If we use the following example 
 
 	episode-002=>(let [a (transient {})] 
   	  (dotimes [i 20] (assoc! a i i))
   		(persistent! a))
 
-We can see that it doesn't work properly.  Only the first seven items were places into the array.  If
+We can see that it doesn't work properly.  Only the first eight items were places into the array.  If
 we re-write functionally with reduce everything is fine.
 
 	episode-002=> (persistent! 
