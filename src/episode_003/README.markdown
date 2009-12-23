@@ -67,6 +67,8 @@ So, our abstract form looks something like this:
          (recur (inc i) mod-form)
          return-form)))
 
+As you can see, there is a list of forms after our template.
+
 What's interesting is that this provides most of the benefit of writing a macro, without the
 overhead of splicing.  It's an interesting method of code reuse.
 
