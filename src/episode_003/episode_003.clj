@@ -5,7 +5,7 @@
 	lib.sfd.stat-utils))
 
 ;;====================
-;; use in are macro
+;; templates used in are macro
 ;;====================
 (deftest test-first
   (are [input result] 
@@ -50,12 +50,11 @@
 ;;Run the experiments
 ;;======================
 (do-template 
- [future-name test-fn]
+ [result-name test-fn]
 
- (def future-name
-      (future
-	((juxt mean stdev) 
-	 (time* 100 (let [v (test-fn 100000)])))))
+ (def result-name
+      ((juxt mean stdev) 
+       (time* 100 (let [v (test-fn 100000)]))))
 
  classic-vec vrange
  trans-vec   vrange2

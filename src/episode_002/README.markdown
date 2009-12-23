@@ -137,3 +137,13 @@ For more information I'd suggest reading the official documentation on transient
 at clojure.org/transients.
 
 Thanks for watching.  I"m Sean Devlin, and this is Full Disclojure
+
+#Addendum 12/23/09
+
+After publishing I learned that I made a mistake with my descriptions os transients.  They do use shared structure,
+but they are not persistent.
+
+Also, I learned about an additional safeguard with transients.  They do not support the IPersistentCollection interface,
+so if they are passed to a normal persistent function, an exception will be thrown.
+
+-SFD
