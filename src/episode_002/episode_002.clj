@@ -11,7 +11,7 @@
     (assoc! :a 1)
     (assoc! :b 2)
     (assoc! :c 3)
-    persistent!)))
+    persistent!)
 
 ;;Wrong way to use transients!
 (let [c (transient {})]
@@ -32,6 +32,10 @@
 	 (transient {})
 	 (range 1 21)))
 
+;;Designed to throw an exception after persistent!
+(let [c (transient #{})]
+  (persistent! c)
+  (conj! c :a))
 
 ;;----------------------------
 ;; PERFORMANCE EXPERIMENTS

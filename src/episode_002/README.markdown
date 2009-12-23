@@ -71,7 +71,7 @@ we re-write functionally with reduce everything is fine.
 The next reason is that transients can only be modified in the same thread they are created in.  As
 you can see in this example, 
 
-	epiode-002=>(let [c (transient [])] (future (conj! c :a)))
+	epiode-002=>@(let [c (transient [])] (future (conj! c :a)))
 
 an exception is thrown when a transient is modified in a separate thread.  This is because
 transients are meant to be used as an exception, rather than the rule.  The intent is to use them
