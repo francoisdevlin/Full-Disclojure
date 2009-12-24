@@ -42,6 +42,8 @@ anonymous fn works just like our add example.
 
 	Note:  Show anon. add
 
+#In Practice
+
 Now that we've got a good feel for constraints, I'd like to discuss how to use them in practice.  There
 was a blog entry posted by Fogus where he suggested that constraints should be separated from the functions
 that use them (You can find the link in the show notes).  I'd like to take his idea a step further.  I say 
@@ -81,6 +83,8 @@ need to supply as a developer is the predicate.
 	episode-004=>((make-constraint even?) + 1 2)
 	episode-004=>((make-constraint odd?) + 1 2)
 	episode-004=>((make-constraint pos?) + 1 2)
+
+#lib.sfd.constraints
 
 This approach is good, but it's still a little limited.  The constraint is only applied to the first argument.  Fortunately, 
 Clojure is a lisp and there are ways to design around this too.  I wrote to functions, pre-constraint and post-constraint just
