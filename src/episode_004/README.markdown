@@ -46,13 +46,16 @@ anonymous fn works just like our add example.
 
 Now that we've got a good feel for constraints, I'd like to discuss how to use them in practice.  There
 was a blog entry posted by Fogus where he suggested that constraints should be separated from the functions
-that use them (You can find the link in the show notes).  I'd like to take his idea a step further.  I say 
-that in almost all cases you should always decouple your constraints from your application code.  Let's take
-our even? test as an example.
+that use them (You can find the link in the show notes).
+
+	http://blog.fogus.me/2009/12/21/clojures-pre-and-post/
+
+  I'd like to take his idea a step further.  I say that in almost all cases you should always decouple your
+constraints from your application code.  Let's take our even? test as an example.
 
 	episode-004=>(defn even-constraint
 	  [f & args]
-	  {:pre [(even? (first args))]}
+	  {:pre [(even? (last args))]}
 	  (apply f args))
 	
 Hold on tight, this next part is going to move fast.  We're going to apply this is a generic constraint 
@@ -74,7 +77,7 @@ that you can close over values in a constraint.  In other words, we can write a 
 	episode-004=>(defn make-constraint
   	  [pred]
   		(fn [f & args]
-    		{:pre [(pred (first args))]}
+    		{:pre [(pred (last args))]}
     		(apply f args)))
 
 This function simply takes a predicate, an applies it to the first argument of the function.  So, the only thing we
