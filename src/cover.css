@@ -1,0 +1,22 @@
+body{
+	background-color:#000000;
+	color:#FFFFFF;
+	font-family:helvetica;
+	font-size:24pt;
+}
+
+#title{
+	font-size:36pt;
+	text-align:center;
+}
+
+#episode-name{
+	text-align:center;
+}
+
+#title-div{
+	position:absolute;
+	top:100px;
+	left:150px;
+	width:400px;
+}

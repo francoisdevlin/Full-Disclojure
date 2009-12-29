@@ -3,7 +3,8 @@
 
 (defn add
   [x y]
-  {:pre [(even? y)]}
+  {:pre [(even? y) (odd? x)]
+   :post [(pos? %)]}
   (+ x y))
 
 ;;Anonymous fns
