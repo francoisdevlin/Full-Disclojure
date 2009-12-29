@@ -2,12 +2,21 @@
 
 Episode 005
 
-In this episode we discuss a macro that took me a while to understand when I came Clojure
+In episode 2 we were discussing, I wrote the following expression:
 
-Explain expression threading, in context of episode has nothing to do with simultaneous code.
+	Note:  Show threaded assoc!
+
+Today I'd like to discuss this symbol right here
+
+	Note:  Highlite thread-first
+
+This is an example of an expression threading macro.  The term expression threading describes taking one
+s-expression and threading it through a second one.  It has nothing to do with concurrency or traditional
+multithreading.  
 
 #Thread-first
-Let's take a look at a very simple function definition.  Here we have a function designed to convert Celsius to Fahrenheit. 
+In order to understand expression threading, let's take a look at a very simple function definition.  Here 
+we have a function designed to convert Celsius to Fahrenheit. 
 
 	episode-005=>(defn c-to-f [c]
   	  (* (+ c 32) 1.8))
@@ -96,12 +105,16 @@ Notice how the function drags right.  We can clean up this code by using thread 
 
 And, as you can see both functions work just fine.
 
-
 	episode-005=>(square 10)
 	100
 	
 	episode-005=>(square->> 10)
 	100
 	
-So, that's how you use thread-first and thread-last.  I hope this makes using these macros in you code easier.
+There's one last point about the threading macros I'd like to stress.  At first glance, the end result only seems to be that it made our code easier
+to read.  However, that misses a very subtle point.  These macros actually abstracted away the process of building up a very specific nested list.  
+This process of abstracting away code construction is the real point of these tools, not improving code readability.  However, that's a point we'll
+discuss in detail another day.
 	
+Anyway, that's how you use thread-first and thread-last.  I hope this gave you a better understanding of these macros, and it is now easier for you to 
+read code other Clojurians write.  Thanks for stopping by today.  I'm Sean Devlin, and this is Full Disclojure.
