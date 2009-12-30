@@ -5,9 +5,11 @@
   (* (+ c 32) 1.8))
 
 (defn c->f [c]
-  (-> c (+ 32) (* 1.8)))
- 
+  (-> c 
+      (+ 32) 
+      (* 1.8)))
 
+ 
 (defn square [n]
   (reduce +
 	  (filter odd?

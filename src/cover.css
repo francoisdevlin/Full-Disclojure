@@ -20,3 +20,19 @@ body{
 	left:150px;
 	width:400px;
 }
+
+.clojure-dark-green{
+	color:#63b132;
+}
+
+.clojure-dark-blue{
+	color:#5881d8;
+}
+
+.clojure-light-green{
+	color:#91dc47;
+}
+
+.clojure-light-blue{
+	color:#90b4fe;
+}
