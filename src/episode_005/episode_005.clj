@@ -2,12 +2,14 @@
   (:use clojure.walk))
 
 (defn c-to-f [c]
-  (* (+ c 32) 1.8))
+  (+ (* c 1.8) 32))
+
 
 (defn c->f [c]
   (-> c 
+      (* 1.8)
       (+ 32) 
-      (* 1.8)))
+      ))
 
  
 (defn square [n]
