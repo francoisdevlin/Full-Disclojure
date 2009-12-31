@@ -4,14 +4,13 @@
 (defn c-to-f [c]
   (+ (* c 1.8) 32))
 
-
 (defn c->f [c]
   (-> c 
       (* 1.8)
       (+ 32) 
       ))
 
- 
+
 (defn square [n]
   (reduce +
 	  (filter odd?
