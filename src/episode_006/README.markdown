@@ -20,16 +20,16 @@ example.
 Now, suppose we want add a coordinate transform to this.  This happens all the time when you can't measure x directly, but
 you can measure some related value u instead.  For our very simple example, we're going to use this transform
 
-	episode-006=>(defn x-transform [u] (+ 1 u))
+	episode-006=>(defn left-shift [x] (+ 1 x))
 	
 Mathematically, we want to do this
 
-	episode-006=>(a-parabola (x-transform 0))
+	episode-006=>(a-parabola (left-shift 0))
 	
 Notice that we have a chaining of fns calls here.  The mathematical term for this is composition.  Clojure provides a 
 mechanism form doing this, the compose operator.
 
-	episode-006=>(def transformed-parabola (comp a-parabola x-transform))
+	episode-006=>(def transformed-parabola (comp a-parabola left-shift))
 	
 	Note: Show examples
 	
@@ -42,7 +42,7 @@ this.
       (partial quadratic 1 1 1)
       (partial + 1)))
 
-You can also use point free style condense code like you would with the thread-last macro.  Let's revisit our square fn.
+You can also use point free style to rearrange code like you would with the thread-last macro.  Let's revisit our square fn.
 
 		Note:  Show square-free.
 

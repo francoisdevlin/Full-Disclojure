@@ -1,6 +1,11 @@
-body{
+#cover{
 	background-color:#000000;
 	color:#FFFFFF;
+	font-family:helvetica;
+	font-size:24pt;
+}
+
+#slide{
 	font-family:helvetica;
 	font-size:24pt;
 }
@@ -30,6 +35,14 @@ body{
 	width:500px;
 }
 
+#slide-div{
+	position:absolute;
+	top:25px;
+	left:100px;
+	width:500px;
+	text-align:center;
+}
+
 .clojure-dark-green{
 	color:#63b132;
 }
@@ -44,4 +57,9 @@ body{
 
 .clojure-light-blue{
 	color:#90b4fe;
+}
+
+.code{
+	font-family:courier;
+	text-align:left;
 }
