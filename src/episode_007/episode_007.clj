@@ -1,8 +1,9 @@
 (ns episode-007
-  (:import (java.util Date GregorianCalendar)
+  (:import (java.util Date Calendar GregorianCalendar)
 	   (java.sql Timestamp)
 	   (org.joda.time DateTime DateTime$Property DateTimeZone 
-                          Minutes Hours Period Interval)))
+                          Minutes Hours Period Interval)
+	   (org.joda.time.format ISODateTimeFormat DateTimeFormatter)))
 
 ;;----------------------
 ;; Dispatch Fn
@@ -13,7 +14,6 @@
     (cond
      (empty? params) ::empty
      (nil? lead-param) ::nil
-     (instance? java.util.Calendar lead-param) ::calendar
      true (class lead-param))))
 
 ;;---------------------
@@ -25,17 +25,22 @@
   [& params]
   (first params))
 
+(defmethod to-ms Long
+  [l]
+  l)
+
+(defmethod to-ms Calendar
+  [c]
+  (to-ms (.getTime c)))
+
+
 (defmethod to-ms Date
-  [& params]
-  (.getTime (first params)))
+  [d]
+  (.getTime d))
 
 (defmethod to-ms Timestamp
-  [& params]
-  (.getTime (first params)))
-
-(defmethod to-ms ::calendar
-  [& params]
-  (to-ms (.getTime (first params))))
+  [ts]
+  (.getTime ts))
 
 (defmethod to-ms ::empty
   [& params]
@@ -88,3 +93,18 @@
 
 (defn joda [& params]
   (DateTime. (apply to-ms params)))
+
+(defmethod to-ms ::map
+  [& params]
+  (let [default-map {:year 2000
+		     :month 1
+		     :day 1
+		     :hour 0
+		     :minute 0
+		     :second 0
+		     :ms 0}
+	input-map (first params)
+	resulting-map (merge default-map input-map)
+	[y mo d h mi s ms] ((juxt :year :month :day :hour :minute :second :ms)
+			    resulting-map)]
+    (to-ms (DateTime. y mo d h mi s ms))))
