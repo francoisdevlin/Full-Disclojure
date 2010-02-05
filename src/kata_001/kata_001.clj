@@ -14,7 +14,11 @@
        (multi-same split delimiters s)))
 
 (defn adder [s]
-  (reduce + (custom-parse s)))
+  (let [coll (custom-parse s)
+	neg-coll (filter neg? coll)]
+    (if (empty? neg-coll)
+      (reduce + coll)
+      (Exception. (apply str neg-coll)))))
 
 (defn adder2 [s]
   (if (#{"//"} (same take 2 s))
