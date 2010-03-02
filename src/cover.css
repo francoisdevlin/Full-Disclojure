@@ -59,6 +59,27 @@
 	color:#90b4fe;
 }
 
+.white-60{
+	color:#999999;
+}
+
+.white-70{
+	color:#A8A8A8;
+}
+
+.white-80{
+	color:#CCCCCC;
+}
+.two-cols{
+	width:150px;
+	padding:5px;
+}
+
+.three-cols{
+	width:100px;
+	padding:5px;
+}
+
 .code{
 	font-family:courier;
 	text-align:left;
