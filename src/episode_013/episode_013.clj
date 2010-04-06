@@ -174,3 +174,6 @@ reutrned.
 (do
   (defequation f<->c [f c] f (-> c (* 1.8) (+ 32)))
   (dosync (alter gas-laws assoc [:f :c] f<->c)))
+
+(let [ic (apply comp (infer-chain @gas-laws :k {:f 0}))]
+  (map #(ic {:f %})) (range 0 100 10))
