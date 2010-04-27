@@ -27,14 +27,19 @@
   ([join-style
     left-coll right-coll
     left-fn   right-fn]
+
+     
      (let [indexed-left (seq-utils/group-by left-fn left-coll)
 	   indexed-right (seq-utils/group-by right-fn right-coll)
+	   
 	   desired-joins (join-style (keys indexed-left) (keys indexed-right))
 	   cross-fn (fn [joined-value]
 			     (for [left-side  (get indexed-left  joined-value [{}])
 				   right-side (get indexed-right joined-value [{}])]
 			       (merge left-side right-side)))]
        (apply concat (map cross-fn desired-joins)))))
+
+
 
 (do-template
  [join-name join-style]
@@ -67,9 +72,9 @@
 ;; SAMPLE DATA
 ;;----------------------
 (def from-xml 
-     [{:name "Sean" :age 27} 
-      {:name "Ross" :age 27} 
-      {:name "Brian" :age 22}])
+     [{:name "Sean" :age 28} 
+      {:name "Ross" :age 28} 
+      {:name "Brian" :age 23}])
 
 (def from-sql 
      [{:owner "Sean" :item "Beer"} 
