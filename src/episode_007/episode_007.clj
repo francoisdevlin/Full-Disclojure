@@ -94,6 +94,8 @@
 (defn joda [& params]
   (DateTime. (apply to-ms params)))
 
+(derive clojure.lang.PersistentArrayMap ::map)
+
 (defmethod to-ms ::map
   [& params]
   (let [default-map {:year 2000
